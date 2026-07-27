@@ -9,8 +9,6 @@ module reg_file (
 	output [7:0] RD2
 );
 
-reg [7:0] r_RD1;
-reg [7:0] r_RD2;
 reg [7:0] mem [0:15];
 
 // Just for show mostly
@@ -39,14 +37,12 @@ initial begin
 end
 
 always @(posedge clk) begin
-	r_RD1 <= mem[A1];
-	r_RD2 <= mem[A2];
 	if (regWrite && ~(A3 == 0)) begin
 		mem[A3] <= WD3;
 	end
 end
 
-assign RD1 = r_RD1;
-assign RD2 = r_RD2;
+assign RD1 = mem[A1];
+assign RD2 = mem[A2];
 
 endmodule

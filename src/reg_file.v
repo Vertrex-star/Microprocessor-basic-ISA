@@ -5,7 +5,6 @@ module reg_file (
 	input [3:0] A3,
 	input [7:0] WD3,
 	input regWrite,
-
 	output [7:0] RD1,
 	output [7:0] RD2
 );
@@ -13,7 +12,6 @@ module reg_file (
 reg [7:0] r_RD1;
 reg [7:0] r_RD2;
 reg [7:0] mem [0:15];
-
 
 // Just for show mostly
 parameter x0  = 4'b0000;
@@ -33,14 +31,16 @@ parameter x13 = 4'b1101;
 parameter x14 = 4'b1110;
 parameter x15 = 4'b1111;
 
+integer k;
 initial begin
-	mem[x0] = 0;
+	for (k = 0; k < 16; k = k + 1) begin
+		mem[k] = 8'd0;
+	end
 end
 
 always @(posedge clk) begin
 	r_RD1 <= mem[A1];
 	r_RD2 <= mem[A2];
-
 	if (regWrite && ~(A3 == 0)) begin
 		mem[A3] <= WD3;
 	end

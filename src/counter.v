@@ -9,7 +9,7 @@ always @(*) begin
 	if (rst) begin
 		countNext = 8'd0;
 	end else begin
-		countNext <= count + inc;
+		countNext = count + inc;
 	end
 end
 

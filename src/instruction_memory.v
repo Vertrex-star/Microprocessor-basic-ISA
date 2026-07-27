@@ -9,19 +9,14 @@ module instruction_memory
 );
 
     reg [23:0] mem [0:7];
-    reg [23:0] out = 24'd0;
     integer N = 0;
-
+	 
     always @(posedge clk) begin
         if (wr == 1'b1 && ~rd && (i_instructions != 24'd0) && (N < 8)) begin
             mem[N] <= i_instructions;
             N <= N + 1;
         end
-        else if (rd == 1'b1 && ~wr) begin
-            out <= mem[PC];         
-        end
     end
 
-    assign o_instructions = out;
+    assign o_instructions = mem[PC];
 endmodule
-
